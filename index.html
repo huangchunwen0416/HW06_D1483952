@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<!-- 宣告使用 HTML5；DOCTYPE 是文件類型宣告，不需要結束標籤。 -->
+<html lang="zh-Hant">
+<!-- html 包住整份文件；lang="zh-Hant" 表示主要使用繁體中文。 -->
+<head>
+    <!-- head 放網頁資訊；這些資訊不會直接成為頁面中的報導文字。 -->
+    <meta charset="UTF-8">
+    <!-- UTF-8 可正確處理中文；meta 是空元素，不寫結束標籤。 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- viewport 讓行動裝置使用裝置寬度；不代表固定寬度的圖片會自動縮小。 -->
+    <meta name="description" content="走進台中宮原眼科，這棟建築曾作為衛生院使用，保留了歷史痕跡並融入現代魔法圖書館風格，探索紅磚拱廊、精緻伴手禮與人氣冰淇淋。">
+    <!-- description 提供網頁摘要；author 標示作者。 -->
+    <meta name="author" content="黃郡玟">
+    <!-- robots 表達索引意圖；本機檔案不會因此自動被搜尋引擎收錄。 -->
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph 提供分享摘要，不是搜尋排名保證。 -->
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:title" content="台中宮原眼科報導｜老房子的新生命">
+    <meta property="og:description" content="走進台中宮原眼科，這棟建築曾作為衛生院使用，保留了歷史痕跡並融入現代魔法圖書館風格，探索紅磚拱廊、精緻伴手禮與人氣冰淇淋。">
+    <meta property="og:image" content="https://travel.taichung.gov.tw/Image/3028/?r=1662079676658">
+    <meta property="og:image:alt" content="台中宮原眼科照片">
+    <meta property="article:published_time" content="2026-10-07">
+    <meta property="article:modified_time" content="2026-10-21">
+    <!-- 正式上線後，再以真實公開網址加入 canonical 及 og:url；不要使用本機或虛構網址。 -->
+    <title>台中宮原眼科報導｜HW06 CSS 樣式練習</title>
+    <!-- title 顯示在瀏覽器分頁；與 body 中的 h1 用途不同。 -->
+
+    <!--
+        方法二：style 元素放在 head，集中設定整頁共用樣式。
+        CSS 規則的結構是「選擇器 { 屬性: 值; }」，CSS 註解使用 /* ... */。
+        元素選擇器如 body、h2；類別選擇器如 .video-frame；ID 選擇器如 #tips。
+        方法一的行內樣式，請在本文搜尋「方法一」查看三處示範。
+    -->
+    <style>
+        /* 1. 盒子尺寸與全頁文字：border-box 讓寬度包含內距與框線。 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+            font-size: 17px;
+            line-height: 1.85;
+            color: #4a2e35;
+            background-color: #faf4f6;
+        }
+        /* 2. 頁首：背景、框線、圓角與內距共同建立報導的視覺層次。 */
+        header {
+            padding: 34px 36px;
+            background-color: #7a3048;
+            color: #fffafc;
+            border-top: 6px solid #4b3109ad;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(122, 48, 72, 0.08);
+        }
+        h1 {
+            margin: 0 0 16px;
+            font-size: 2rem;
+            line-height: 1.4;
+            letter-spacing: 0.04em;
+        }
+        header p {
+            margin: 10px 0;
+        }
+        small {
+            font-size: 0.85em;
+            font-style: normal;
+        }
+        /* 3. 導覽與連結：inline-block 讓連結可設定完整的點選內距。 */
+        nav {
+            margin: 24px 0;
+            padding: 20px 24px;
+            background-color: #fbe3eb;
+            border: 1px solid #f2c2d1;
+            border-radius: 8px;
+        }
+        nav h2 {
+            margin-top: 0;
+            padding: 0;
+            border: 0;
+            font-size: 1.1rem;
+            color: #7a3048;
+        }
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        nav li {
+            display: inline-block;
+            margin: 4px 6px 4px 0;
+        }
+        nav a {
+            display: inline-block;
+            padding: 6px 14px;
+            background-color: #ffffff;
+            border: 1px solid #ebbecb;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #8c3b53;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        a {
+            color: #a33857;
+            text-underline-offset: 4px;
+            overflow-wrap: anywhere;
+        }
+        /* 虛擬類別 :hover 表示滑鼠移入；:focus-visible 提供鍵盤焦點提示。 */
+        a:hover {
+            color: #d1587a;
+            text-decoration: underline;
+        }
+        nav a:hover {
+            background-color: #a33857;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        a:focus-visible, summary:focus-visible {
+            outline: 3px solid #d1587a;
+            outline-offset: 4px;
+        }
+        /* 4. 文章章節與盒子模型：margin 為外距，padding 為內距。 */
+        section, aside {
+            margin: 24px 0;
+            padding: 24px 28px;
+            background-color: #fff7f9;
+            border: 1px solid #f0c2cf;
+            border-radius: 8px;
+        }
+        h2 {
+            margin: 0 0 18px;
+            padding-left: 12px;
+            border-left: 4px solid #b85070;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: #632336;
+        }
+        h3 {
+            margin: 22px 0 10px;
+            font-size: 1.1rem;
+            color: #7a3048;
+        }
+        p {
+            margin: 12px 0;
+        }
+        ul, ol {
+            padding-left: 1.6em;
+        }
+        li {
+            margin: 8px 0;
+        }
+        hr {
+            margin: 26px 0;
+            border: 0;
+            border-top: 1px dashed #e8b2c1;
+        }
+        /* 5. 表格：以 CSS 框線取代舊式的 border="1"。 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+            overflow-wrap: anywhere;
+            background-color: #ffffff;
+        }
+        caption {
+            margin-bottom: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #632336;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #e8b8c6;
+            text-align: left;
+            vertical-align: top;
+        }
+        thead {
+            background-color: #f7d2de;
+            color: #5c1d2e;
+        }
+        tbody th {
+            background-color: #fcf0f4;
+            color: #632336;
+        }
+        /* 6. 圖片與嵌入媒體：類別區分影片比例與地圖高度。 */
+        figure {
+            margin: 18px 0;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+        figcaption {
+            margin-top: 10px;
+            color: #7a525d;
+            font-size: 0.85em;
+        }
+        iframe {
+            display: block;
+            max-width: 100%;
+            border: 0;
+            border-radius: 6px;
+        }
+        .video-frame {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+        .map-frame {
+            width: 100%;
+            height: 340px;
+        }
+        /* 7. ID 選擇器只設定這個補充區；aside 仍保留原有語意。 */
+        #tips {
+            background-color: #fcedf3;
+            border: 1px solid #f2bdce;
+            border-left: 5px solid #c95d7e;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #632336;
+        }
+        footer {
+            margin-top: 32px;
+            padding: 24px 0;
+            border-top: 2px solid #b85070;
+            color: #7a525d;
+            text-align: center;
+        }
+        /* 8. 窄視窗只縮小留白與字級，所有 CSS 仍在同一個 style 元素。 */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px 12px;
+                font-size: 16px;
+            }
+            header, nav, section, aside {
+                padding: 20px 16px;
+            }
+            h1 {
+                font-size: 1.65rem;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--
+        第六次作業：一頁式台中宮原眼科報導。
+        本範例延續 HW05 的 HTML 語意結構，加入 CSS 配色、文字與盒子模型。
+        方法一：在個別元素的 style 屬性內寫行內樣式；本頁共有三處示範。
+        方法二：在 head 的 style 元素內集中撰寫共用規則。
+        所有自寫 CSS 都在本 HTML；不載入外部 CSS，不使用 @import 或自寫 JavaScript。
+        YouTube 與 Google 地圖是外部服務，服務內部可能使用自己的 CSS 與 JavaScript。
+        語意元素描述內容用途；本次的視覺外觀由 CSS 決定。
+        註解使用「小於符號、驚嘆號、兩個連字號」開始，並以兩個連字號及大於符號結束。
+        註解不會顯示於網頁，但讀者可從原始碼看見，因此不要放私人資料。
+        使用一致的四個空格縮排；成對標籤都明確寫出結束標籤。
+    -->
+
+    <!-- header 是頁首；id="top" 是下方「回到頁首」連結的目的地。 -->
+    <header id="top">
+        <!-- h1 是本頁主標題；h2 用於各章節，依內容階層選用標題。 -->
+        <h1>台中宮原眼科：老房子的新生命</h1>
+        <p><small>日治老建築 · 魔法書櫃 · 歷史再造</small></p>
+        <p><strong>靠近臺中火車站的綠川旁，一棟由紅磚瓦構成的歷史建築。</strong></p>
+        <!-- 方法一（1/3）：行內 style 只設定這個 mark 的背景、文字顏色與內距。 -->
+        <p>本期焦點：<mark style="background-color: #ffd6e5; color: #5c1a2d; padding: 2px 8px; border-radius: 3px;">日治眼科診所到文化創意空間的修復歷史</mark>，以及魔法圖書館風的美學體驗。</p>
+        <!-- time 的 datetime 以標準日期格式 provide 機器可讀的日期。 -->
+        <p>作者：黃郡玟｜報導整理日期：<time datetime="2026-10-21">2026 年 10 月 21 日</time></p>
+        <!-- 方法一（3/3）：共用的 small 為正常字體，這一處另用行內樣式改為斜體。 -->
+        <p><small style="font-style: italic;">本文為資料整理型教學報導，非現場採訪紀錄。</small></p>
+    </header>
+
+    <!-- nav 表示導覽區；href="#名稱" 會跳到本頁相同 id 的元素。 -->
+    <nav aria-label="報導目錄">
+        <h2>報導目錄</h2>
+        <ul>
+            <li><a href="#intro">宮原眼科簡介</a></li>
+            <li><a href="#highlights">景點特色與建議觀光順序</a></li>
+            <li><a href="#table">景點比較表</a></li>
+            <li><a href="#photo">宮原眼科照片</a></li>
+            <li><a href="#video">影音報導</a></li>
+            <li><a href="#map">位置地圖</a></li>
+            <li><a href="#tips">走讀小提醒</a></li>
+            <li><a href="#sources">資料來源</a></li>
+        </ul>
+    </nav>
+
+    <!-- hr 表示內容主題的分隔，也是沒有結束標籤的空元素。 -->
+    <hr>
+
+    <!-- main 包住本頁主要內容；article 表示可獨立閱讀的完整報導。 -->
+    <!-- main 是本頁唯一的主要內容區，不能放入 nav、aside、header 或 footer 裡。 -->
+    <main id="main-content">
+        <!-- article 收納可獨立理解的報導；section 是這篇報導的主題章節。 -->
+        <article aria-label="台中宮原眼科專題報導">
+            <!-- section 將報導分成有標題的章節；同一頁中的 id 不可重複。 -->
+            <section id="intro">
+                <h2>一、宮原眼科簡介</h2>
+                <!-- p 表示段落；strong 強調重要資訊，不用來取代標題。 -->
+                <p>
+                    台中宮原眼科位於台中市中心，自 <strong>2012 年 11 月 2 日</strong> 正式成立以來，
+                    成為台中知名的熱門觀光地標、伴手禮名店與特色冰品店。
+                </p>
+                <p>
+                    館內最特別的是保留了復古的紅磚外牆與拱廊，<strong>內部則打造得類似電影《哈利波特》霍格華茲學院的魔幻圖書館風格。</strong>
+                    這座建築於 1927 年建立，早期是宮原武熊醫師開設的眼科診所。
+                    後來在「日出」經營團隊與專業建築修復人員的努力下，耗時一年多將這座老建築重新整修，轉型為充滿活力的文化創意空間。
+                </p>
+                <p>
+                    從紅磚牆的舊眼科診所到魔法書櫃般的甜點殿堂，宮原眼科像一份可以慢慢閱讀的城市筆記。
+                    本篇以景點整理，介紹這座老建築的新世界。
+                </p>
+                <!-- br 僅用於同段文字中需要的換行；不要用很多 br 製造間距。 -->
+                <p>宮原眼科地址：台中市中區中山路 20 號<br>閱讀重點：日治老建築、魔法書櫃與排隊冰淇淋。</p>
+            </section>
+
+            <hr>
+
+            <section id="highlights">
+                <h2>二、景點特色與建議觀光順序</h2>
+                <h3>值得留意的三個特色</h3>
+                <!-- ul 是無序清單；li 是個別項目，適合不分先後的資訊。 -->
+                <ul>
+                    <li><strong>歷史與現代的完美融合：</strong>建築完整保留了部分的紅磚外牆、舊牌樓與歷史結構，並巧妙融入現代設計語彙。從一棟曾因地震荒廢的老舊診所，華麗蛻變為結合在地歷史記憶與精緻商業美學的重生典範。</li>
+                    <li><strong>魔法世界般的空間美學：</strong>由日治時期老眼科改建，內部挑高的木造大廳、古典華麗的書櫃牆與柔和燈光，營造出濃厚的神祕氛圍，常被遊客形容宛如走進《哈利波特》的霍格華茲魔法學校，每個角落都充滿拍美照的絕佳取景點。</li>
+                    <li><strong>風味獨特的超人氣伴手禮與冰淇淋：</strong>以日出集團的精湛餐飲工藝聞名，不論是館外大排長龍、口味選擇豐富且能自由搭配鳳梨酥的宮原冰淇淋，還是設計精美如精裝書本般的鳳梨酥、太陽餅等伴手禮，都在視覺與味覺上帶來極致享受。</li>
+                </ul>
+
+                <h3>建議觀光順序</h3>
+                <!-- 方法一（2/3）：這一段有獨立的左框線；其他 p 不受這個 style 屬性影響。 -->
+                <p style="border-left: 4px solid #c95d7e; padding-left: 14px; color: #7a3048;">以下是本報導規劃的觀光建議，並非官方指定路線。</p>
+                <!-- ol 是有序清單；瀏覽器會依 li 的排列產生編號。 -->
+                <ol>
+                    <li>先入內參觀與拍照（捕捉人潮較少、採光最好的時刻）。</li>
+                    <li>挑選與購買伴手禮（避免提早買冰淇淋融化）。</li>
+                    <li>排隊享用宮原冰淇淋（完美的行程結尾）。</li>
+                </ol>
+            </section>
+
+            <hr>
+
+            <section id="table">
+                <h2>三、景點比較表</h2>
+                <!--
+                    table 用於呈現資料，不用來排版整個網頁。
+                    HW06 移除舊式 border 屬性，改由 style 元素內的 table、th、td 規則設定框線。
+                    border-collapse 合併相鄰框線；padding 增加儲存格內距。
+                    表格仍保留 caption、thead、tbody、scope 等語意結構。
+                -->
+                <table>
+                    <!-- caption 是表格標題，放在 table 內最前面。 -->
+                    <caption>台中宮原眼科與二處景點的特色與觀察重點</caption>
+                    <!-- thead 包住表頭；tr 是一橫列；th 是標題儲存格。 -->
+                    <thead>
+                        <tr>
+                            <!-- scope="col" 表示這個 th 是整欄的標題。 -->
+                            <th scope="col">景點名稱</th>
+                            <th scope="col">主要特色</th>
+                            <th scope="col">建議觀察重點</th>
+                        </tr>
+                    </thead>
+                    <!-- tbody 包住資料列；td 是一般資料儲存格。 -->
+                    <tbody>
+                        <tr>
+                            <!-- scope="row" 表示這個 th 是本列的標題。 -->
+                            <th scope="row">宮原眼科</th>
+                            <td>日治時期眼科診所 ➔ 臺中市衛生院</td>
+                            <td>沉浸式奇幻空間、拍照打卡、買精緻伴手禮</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">臺中市役所</th>
+                            <td>日治時期臺中市行政官署（市役所）</td>
+                            <td>欣賞百年官署洋樓、藝文展覽、咖啡餐飲</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">審計新村</th>
+                            <td>審計部舊宿舍群（省府老宿舍）</td>
+                            <td>逛文創小店、手作市集、品嚐特色小吃</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <hr>
+
+            <section id="photo">
+                <h2>四、宮原眼科照片</h2>
+                <!-- figure 將圖片與圖說組成一個單位；figcaption 是圖說。 -->
+                <figure>
+                    <!--
+                        img 是空元素，不寫 /img 結束標籤。
+                        src 指定圖片網址；本範例使用外部圖片，需要連線才能載入。
+                        alt 描述照片內容，圖片未載入時或使用螢幕閱讀器時仍可理解。
+                        width 提供圖片尺寸資訊；CSS 的 max-width: 100% 與 height: auto 讓圖片在窄視窗縮小且保持比例。
+                    -->
+                    <img
+                        src="https://travel.taichung.gov.tw/Image/3028/?r=1662079676658"
+                        alt="台中宮原眼科建築外觀與紅磚拱廊"
+                        width="480">
+                    <figcaption>
+                        宮原眼科是台中火車站附近重要且兼具歷史風貌的文化地標。
+                        圖片來源：<a href="https://travel.taichung.gov.tw/zh-tw/attractions/intro/793" target="_blank" rel="noopener noreferrer">大玩台中景點頁</a>。
+                    </figcaption>
+                </figure>
+            </section>
+
+            <hr>
+
+            <section id="video">
+                <h2>五、影音報導</h2>
+                <p>透過下方影片認識台中宮原眼科的歷史變遷與建築美學，再比較影片畫面與本文介紹的空間特色。</p>
+                <!--
+                    iframe 嵌入介紹影片。
+                    src 使用 /embed/影片ID，title 描述內容；allowfullscreen 允許全螢幕。
+                    strict-origin-when-cross-origin 讓 HTTP 預覽傳送來源資訊。
+                    請用 Live Server 開啟；file:// 缺少來源時仍可能出現錯誤 153。
+                    更換影片不會解除 YouTube 的來源要求，因此須搭配正確預覽方式。
+                -->
+                <figure>
+                    <iframe
+                        class="video-frame"
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/bLUxUHmhQEs"
+                        title="台中宮原眼科介紹影片"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                    <figcaption>影片：台中宮原眼科歷史介紹影片。</figcaption>
+                </figure>
+                <p><a href="https://youtu.be/bLUxUHmhQEs" target="_blank" rel="noopener noreferrer">在 YouTube 觀看宮原眼科介紹影片（另開分頁）</a></p>
+                <p><small>影片為外部作者發布的歷史介紹，現場狀況請以最新官方資訊為準。</small></p>
+                <p><small>本機預覽請使用 Live Server 或 HTTP 伺服器；若直接開啟 HTML 出現錯誤 153，請改用 HTTP 預覽或上方 YouTube 連結。</small></p>
+            </section>
+
+            <!-- 位置地圖是報導的主要資訊，因此用 section；iframe 嵌入外部地圖。 -->
+            <section id="map">
+                <h2>六、位置地圖：找到宮原眼科</h2>
+                <p>宮原眼科位於台中市中區，地址為<strong>中山路 20 號</strong>。
+                    下方地圖標示本文介紹的宮原眼科位置，方便讀者對照景點與周邊綠川水岸。</p>
+                <!--
+                    Google 地圖以座標定位。
+                    title 說明地圖用途；loading="lazy" 延後載入較下方的外部內容。
+                    iframe 必須寫結束標籤；width 與 height 設定顯示尺寸。
+                    地圖需連網；另提供一般地圖連結，載入失敗時仍可開啟。
+                -->
+                <iframe
+                    class="map-frame"
+                    src="https://maps.google.com/maps?q=24.13788,120.68341&amp;z=16&amp;output=embed"
+                    width="480"
+                    height="360"
+                    title="台中宮原眼科位置 Google 地圖"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+                <p><a href="https://maps.app.goo.gl/3N3P41aB2pX7B3C37" target="_blank" rel="noopener noreferrer">在 Google 地圖開啟宮原眼科（另開分頁）</a></p>
+                <p><small>位置查詢由 Google 地圖提供；抵達後請依現場動線進入館內或購買冰淇淋。</small></p>
+            </section>
+
+            <hr>
+
+            <!--
+                aside 放與報導相關、但可獨立省略的補充資訊。
+                此處是走讀提醒，不用來取代主要景點介紹。
+                本次用背景、內距與左框線區分補充區塊，仍依文件順序顯示。
+            -->
+            <aside id="tips" aria-labelledby="tips-title">
+                <h2 id="tips-title">走讀小提醒</h2>
+                <!-- details 與 summary provide 瀏覽器原生收折功能，不需要自寫 JavaScript。 -->
+                <details open>
+                    <summary>參觀與品嚐冰淇淋時，記得這三件事</summary>
+                    <ul>
+                        <li>室內參觀與拍照時請保持安靜，並留意周遭遊客避免碰撞展櫃。</li>
+                        <li>宮原冰淇淋假日排隊人潮較多，建議避開尖峰時段或先參觀購買伴手禮。</li>
+                        <li>購買冰淇淋後可至綠川水岸步道享用，並請隨手將垃圾帶走維護環境。</li>
+                    </ul>
+                </details>
+            </aside>
+
+            <hr>
+
+            <section id="sources">
+                <h2>七、資料來源</h2>
+                <p>本報導依下列資料整理，參觀順序與觀察建議由示範作者規劃。</p>
+                <!--
+                    target="_blank" 另開分頁；rel 保護開啟新頁面的關聯。
+                    網址中的 & 在 HTML 原始碼中寫成 &amp;。
+                -->
+                <ul>
+                    <li><a href="https://travel.taichung.gov.tw/zh-tw/attractions/intro/793" target="_blank" rel="noopener noreferrer">台中觀光旅遊網：臺中宮原眼科（含圖片來源）</a></li>
+                    <li><a href="https://www.miyahara.com.tw/index-go.php" target="_blank" rel="noopener noreferrer">宮原眼科 Miyahara 官方網站</a></li>
+                    <li><a href="https://youtu.be/bLUxUHmhQEs" target="_blank" rel="noopener noreferrer">YouTube：台中宮原眼科介紹影片</a></li>
+                </ul>
+                <p><small>資料整理日期：2026 年 10 月 21 日。</small></p>
+            </section>
+        </article>
+    </main>
+
+    <hr>
+
+    <!-- footer 是頁尾；來源與作者標示應依自己的作品修改。 -->
+    <footer>
+        <p><strong>第六次 HTML 與 CSS 作業範例｜台中宮原眼科報導</strong></p>
+        <p><small>作者：黃郡玟 · 更新日期：2026 年 10 月 21 日</small></p>
+        <p><small>CSS 教學參考：<a href="https://steam.oxxostudio.tw/category/css/info/how-to-use.html">STEAM：開始使用 CSS（方法一、方法二）</a>。</small></p>
+        <p><small>文字依來源整理；照片與影片權利屬原作者。</small></p>
+        <p><a href="#top">回到頁首</a></p>
+    </footer>
+</body>
+</html>
